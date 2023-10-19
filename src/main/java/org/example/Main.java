@@ -56,7 +56,7 @@ public class Main {
 //                }
                 newFile = new File(nomArxiu);
                 if (file.renameTo(new File(String.valueOf(newFile)))){
-                    System.out.println("El nom s ha cambiat correctament");
+                    System.out.println("El nom s ha cambiat correctament"); // s haurie de fer que es quedes a la ruta en la que estave, ara mou el arxiu a la ruta del projecte
                 }else{
                     System.out.println("No s ha cambiat el nom");
                 }
