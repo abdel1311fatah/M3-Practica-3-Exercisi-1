@@ -13,7 +13,6 @@ public class Main {
         int option = 0; // si no no la deixe utilitzar al while
         String ruta = obtindreString("Introduzca la ruta del archivo: ");
         File file = new File(ruta);
-        File newFile = null;
 //        ArrayList<String> carpetes = new ArrayList<>();
 
 //        if (!file.exists()) {
@@ -30,7 +29,8 @@ public class Main {
 //        }
 
         if(file.exists()) { // treu l' ultim arxiu/carpeta de la ruta
-            String[] novaRuta = ruta.split("\\\\"); // separe per \
+            if(file.isFile()) {
+                String[] novaRuta = ruta.split("\\\\"); // separe per \
 //            for (int i = 0; i < novaRuta.length; i++) {
 //                carpetes.add(novaRuta[i]);
 ////                if (i == (novaRuta.length - 1)) {
@@ -43,7 +43,26 @@ public class Main {
 ////                    ruta.replace(novaRuta[novaRuta.length - 1],"");
 ////                }
 //            }
-            novaRuta[novaRuta.length-1] = "";
+                String nomArxiuAmbExtensio = novaRuta[novaRuta.length - 1]; // treu el nom del ultim arxiu de la ruta, el que busquem
+                String[] Arxiu = nomArxiuAmbExtensio.split("\\.");
+                String nomArxiu = Arxiu[0]; // les ultimes 3 linies treuen el nom del arxiu sense extensio al fer un split amb la regex del punt
+
+                novaRuta[novaRuta.length - 1] = nomArxiu;
+                File newFile = new File(Arrays.toString(novaRuta));
+//                file = newFile;
+//                ruta = "";
+//                for (int i = 0; i < novaRuta.length; i++) { // treu la ruta absoluta amb el nom del arxiu cambiat
+//                    ruta += "\\" + novaRuta[i]; // fa un string de la ruta, els \\ son el simbol de \
+//                }
+                newFile = new File(nomArxiu);
+                if (file.renameTo(new File(String.valueOf(newFile)))){
+                    System.out.println("El nom s ha cambiat correctament");
+                }else{
+                    System.out.println("No s ha cambiat el nom");
+                }
+            }else{
+                System.out.println("No es un arxiu");
+            }
 //            for (int i = 0; i < carpetes.size(); i++) {
 //                if (i > novaRuta.length - 1) {
 //                    novaRuta[i] = carpetes.get(i-1);
